@@ -60,6 +60,8 @@ button:hover {
   box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4, 0 0 100px #03e9f4;
 }
 
+
+
 button span {
   position: absolute;
   display: block;
@@ -179,4 +181,15 @@ button span:nth-child(4) {
   height: 100%;
   opacity: 0;
   cursor: pointer;
+}
+
+
+.codedby {
+  padding: 7px;
+  border-radius: 10px;
+  color: #03e9f4;
+  cursor: pointer;
+  box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4, 0 0 100px #03e9f4;
+  position: absolute;
+  bottom: 200px;
 }
