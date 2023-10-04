@@ -5,103 +5,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js"></script>
-
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
   <title>Gerar PDF com Imagens</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
-
-    .container {
-      text-align: center;
-      padding: 20px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .input-group {
-      margin-bottom: 15px;
-    }
-
-    label {
-      font-weight: bold;
-    }
-
-    input {
-      margin-top: 5px;
-      padding: 8px;
-      width: 50px;
-      text-align: center;
-    }
-
-    button {
-      background-color: #4caf50;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      width: 100%;
-      height: 35px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-      font-size: 15px;
-      font-weight: bold;
-    }
-
-    button:hover {
-      background-color: #45a049;
-    }
-
-    .file-upload {
-      position: relative;
-      display: inline-block;
-      cursor: pointer;
-      font-family: Arial, sans-serif;
-    }
-
-    .custom-file-upload {
-      display: inline-block;
-      padding: 10px 20px;
-      background-color: #00c7ba;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      margin-bottom: 10px;
-      transition: background-color 0.3s;
-    }
-
-    .custom-file-upload:hover {
-      background-color: #45a049;
-    }
-
-    #imageInput {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0;
-      cursor: pointer;
-    }
-  </style>
 </head>
 
 <body>
   <div class="container">
     <h1>Gerador de PDF (Imagens repetidas)</h1>
     <div class="input-group">
-      <label for="numCols">Número de Colunas:</label>
-      <input type="number" id="numCols" min="1" value="1">
+      <label for="customRange1" class="form-label">Número de Colunas:</label>
+      <input type="range" class="form-range" id="numCols" max="50" min="1" value="1">
     </div>
     <div class="input-group">
-      <label for="numRows">Número de Linhas:</label>
-      <input type="number" id="numRows" min="1" value="1">
+      <label for="numRows" class="form-label">Número de Linhas:</label>
+      <input type="range" class="form-range" id="numRows" min="1" value="1" max="50">
     </div>
     <p id="imageCountText"></p>
     <div class="file-upload">
@@ -111,100 +30,19 @@
       <input type="file" id="imageInput" accept="image/*">
     </div>
     <p id="fileNameText"></p>
-    <button onclick="generatePDF()">Gerar PDF</button>
-
+    <button onclick="generatePDF()">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      Gerar PDF
+    </button>
   </div>
 
-  <script>
-    // Obtém uma referência para o input de arquivo
-    const imageInput = document.getElementById('imageInput');
-
-    // Adiciona um ouvinte de evento para o evento change
-    imageInput.addEventListener('change', function (event) {
-      // Obtém o arquivo selecionado pelo usuário
-      const selectedFile = event.target.files[0];
-
-      // Verifica se um arquivo foi selecionado
-      if (selectedFile) {
-        // Atualiza o texto com o nome do arquivo selecionado
-        document.getElementById('fileNameText').textContent = `Arquivo selecionado: ${selectedFile.name}`;
-      } else {
-        // Se nenhum arquivo for selecionado, limpa o texto
-        document.getElementById('fileNameText').textContent = '';
-      }
-    });
-
-    function updateImageCountText() {
-      const numCols = parseInt(document.getElementById('numCols').value);
-      const numRows = parseInt(document.getElementById('numRows').value);
-      const imageCount = numCols * numRows;
-      const imageCountText = `Será gerado ${imageCount} imagens.`;
-      document.getElementById('imageCountText').textContent = imageCountText;
-    }
-
-    // Chame a função updateImageCountText quando os inputs forem alterados
-    document.getElementById('numCols').addEventListener('input', updateImageCountText);
-    document.getElementById('numRows').addEventListener('input', updateImageCountText);
-
-
-    function generatePDF() {
-      const imageInput = document.getElementById('imageInput');
-      const numCols = parseInt(document.getElementById('numCols').value);
-      const numRows = parseInt(document.getElementById('numRows').value);
-      const quantity = numCols * numRows;
-      const file = imageInput.files[0];
-
-      if (!file) {
-        alert('Por favor, selecione uma imagem.');
-        return;
-      }
-
-      const reader = new FileReader();
-      reader.onloadend = function () {
-        const imageBase64 = reader.result;
-        const img = new Image();
-        img.src = imageBase64;
-        img.onload = function () {
-          const imgWidth = img.width;
-          const imgHeight = img.height;
-          const pdf = new jsPDF();
-          const margin = 10;
-          const pageWidth = pdf.internal.pageSize.getWidth();
-          const pageHeight = pdf.internal.pageSize.getHeight();
-          const cellWidth = (pageWidth - 2 * margin) / numCols;
-          const cellHeight = (pageHeight - 2 * margin) / numRows;
-
-          let currentRow = 0;
-          let currentCol = 0;
-
-          for (let i = 0; i < quantity; i++) {
-            const x = margin + currentCol * cellWidth;
-            const y = margin + currentRow * cellHeight;
-
-            // Calcula a largura e altura da imagem para caber na célula mantendo a proporção
-            const scaleFactor = Math.min(cellWidth / imgWidth, cellHeight / imgHeight);
-            const newWidth = imgWidth * scaleFactor;
-            const newHeight = imgHeight * scaleFactor;
-
-            pdf.addImage(imageBase64, 'JPEG', x, y, newWidth, newHeight);
-            currentCol++;
-            if (currentCol === numCols) {
-              currentCol = 0;
-              currentRow++;
-              if (currentRow === numRows) {
-                currentRow = 0;
-              }
-            }
-          }
-
-          pdf.save('output.pdf');
-        };
-      };
-
-      reader.readAsDataURL(file);
-    }
-
-  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+  <script src="main.js"></script>
 </body>
 
 </html>
