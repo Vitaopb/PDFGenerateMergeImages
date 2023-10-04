@@ -15,7 +15,7 @@ body {
   border: 2px solid #fff;
   border-radius: 10px;
   background: #0d1520;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.226);
+  box-shadow: 0 0 5px #03e8f491, 0 0 25px #03e8f47e, 0 0 50px #03e8f481, 0 0 100px #03e8f483;
   max-width: 600px;
   margin: 0 15px;
 }
@@ -190,6 +190,12 @@ button span:nth-child(4) {
   color: #03e9f4;
   cursor: pointer;
   box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4, 0 0 100px #03e9f4;
-  position: absolute;
-  bottom: 200px;
+}
+
+.outputNum {
+  text-align: center !important;
+  background-color: white;
+  padding: 10px;
+  color: #0d1520;
+  width: 100%;
 }

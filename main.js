@@ -1,3 +1,34 @@
+var myRangeCols = document.querySelector("#numCols");
+var myValueCols = document.querySelector("#myValueCols");
+var myRangeRows = document.querySelector("#numRows");
+var myValueRows = document.querySelector("#myValueRows");
+function showUnitRange(myRange, myValue) {
+  var off =
+    myRange.offsetWidth / (parseInt(myRange.max) - parseInt(myRange.min));
+  var px =
+    (myRange.valueAsNumber - parseInt(myRange.min)) * off -
+    myValue.offsetParent.offsetWidth / 2;
+
+  myValue.parentElement.style.left = px + "px";
+  myValue.parentElement.style.top = myRange.offsetHeight + "px";
+  myValue.innerHTML = myRange.value;
+
+  myRange.oninput = function () {
+    let px =
+      (myRange.valueAsNumber - parseInt(myRange.min)) * off -
+      myValue.offsetWidth / 2;
+    myValue.innerHTML = myRange.value;
+    myValue.parentElement.style.left = px + "px";
+  };
+
+  updateImageCountText()
+}
+
+showUnitRange(myRangeCols, myValueCols)
+showUnitRange(myRangeRows, myValueRows)
+
+
+
 const imageInput = document.getElementById("imageInput");
 
 imageInput.addEventListener("change", function (event) {

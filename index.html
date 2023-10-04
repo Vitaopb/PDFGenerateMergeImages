@@ -12,34 +12,45 @@
 </head>
 
 <body>
-  <div class="container">
-    <h2>Gerador de PDF (Imagens repetidas)</h2>
-    <div class="input-group">
-      <label for="customRange1" class="form-label">Número de Colunas:</label>
-      <input type="range" class="form-range" id="numCols" max="50" min="1" value="1">
+  <div style="display: flex; flex-direction: column; gap: 40px; align-items: center;">
+    <div class="container">
+      <h2>Gerador de PDF (Imagens repetidas)</h2>
+
+      <label for="numRows" class="form-label" style="margin-top: 26px;">Número de Colunas</label>
+      <div style="position:relative; margin:auto; width:100%">
+        <span style="position:absolute; color:white; border:1px solid blue; min-width:60px;">
+          <span id="myValueCols"></span>
+        </span>
+        <input type="range" id="numCols" max="30" min="1" value="4" style="width:100%">
+      </div>
+
+      <label for="numRows" class="" style="margin-top: 35px;">Número de Linhas </label>
+      <div style="position:relative; margin:auto; width:100%; margin-bottom: 30px;">
+        <span style="position:absolute; color:white; border:1px solid blue; min-width:60px;">
+          <span id="myValueRows"></span>
+        </span>
+        <input type="range" id="numRows" max="30" min="1" value="5" style="width:100%">
+      </div>
+      <p id="imageCountText"></p>
+      <div class="file-upload">
+        <label for="imageInput" class="custom-file-upload">
+          Adicionar arquivo
+        </label>
+        <input type="file" id="imageInput" accept="image/*">
+      </div>
+      <p id="fileNameText"></p>
+      <button onclick="generatePDF()">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        Gerar PDF
+      </button>
     </div>
-    <div class="input-group">
-      <label for="numRows" class="form-label">Número de Linhas:</label>
-      <input type="range" class="form-range" id="numRows" min="1" value="1" max="50">
-    </div>
-    <p id="imageCountText"></p>
-    <div class="file-upload">
-      <label for="imageInput" class="custom-file-upload">
-        Adicionar arquivo
-      </label>
-      <input type="file" id="imageInput" accept="image/*">
-    </div>
-    <p id="fileNameText"></p>
-    <button onclick="generatePDF()">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      Gerar PDF
-    </button>
+    <a href="https://www.linkedin.com/in/victor-lieuthier/" class="codedby">Coded by Victor Lieuthier</a>
   </div>
 
-  <a href="https://www.linkedin.com/in/victor-lieuthier/" class="codedby">Coded by Victor Lieuthier</a>
+
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
